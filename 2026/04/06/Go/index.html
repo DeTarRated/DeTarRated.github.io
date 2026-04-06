@@ -5,9 +5,9 @@
   <meta charset="utf-8">
   
   
-  <title>文章归档: 2026-03 | Kaitani&#39;s Blog</title>
-  <link rel="canonical" href="http://example.com/archives/2026/03/index.html">
-  <meta name="author" content="John Doe" />
+  <title>MySQL 学习笔记 | Kaitani&#39;s Blog</title>
+  <link rel="canonical" href="http://example.com/2026/04/06/Go/">
+  <meta name="author" content="Kaitani" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,20 +15,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="Go" />
   
-  <meta property="og:type" content="website">
-<meta property="og:title" content="文章归档: 2026-03">
-<meta property="og:url" content="http://example.com/archives/2026/03/index.html">
+  <meta name="description" content="Go   1.为什么选Go语言    2.讲一下协程、线程、进程    3.defer执行顺序    4.slice扩容机制    5.map底层设计（map是不是并发安全的）    6.map扩容机制    7.CSP是什么    8.讲一下Go中的Channel    9.是否可以读写已关闭的Channel    10.select和switch的区别    11.原子操作和锁的区别    1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 学习笔记">
+<meta property="og:url" content="http://example.com/2026/04/06/Go/index.html">
 <meta property="og:site_name" content="Kaitani&#39;s Blog">
+<meta property="og:description" content="Go   1.为什么选Go语言    2.讲一下协程、线程、进程    3.defer执行顺序    4.slice扩容机制    5.map底层设计（map是不是并发安全的）    6.map扩容机制    7.CSP是什么    8.讲一下Go中的Channel    9.是否可以读写已关闭的Channel    10.select和switch的区别    11.原子操作和锁的区别    1">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="og:image" content="http://example.com/images/go-cover.png">
+<meta property="article:published_time" content="2026-04-06T08:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-06T08:12:45.017Z">
+<meta property="article:author" content="Kaitani">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/go-cover.png">
   
     <link rel="alternate" href="/atom.xml" title="Kaitani's Blog" type="application/atom+xml">
   
   <!-- JSON-LD 结构化数据 -->
   
+  
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"MySQL 学习笔记","description":"Go\n \n1.为什么选Go语言\n\n","image":"http://example.com/2026/04/06/Go/images/go-cover.png","author":{"@type":"Person","name":"Kaitani"},"publisher":{"@type":"Organization","name":"Kaitani's Blog","logo":{"@type":"ImageObject","url":"http://example.com/images/user.svg"}},"datePublished":"2026-04-06T08:00:00.000Z","dateModified":"2026-04-06T08:12:45.017Z","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/04/06/Go/"}}
+    </script>
   
   <!-- 关键 CSS 预加载 -->
   <link rel="preload" href="/css/kr-core.min.css" as="style" crossorigin>
@@ -138,101 +149,147 @@
 
         
 
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2026/04/06/Go/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
             
-<style>
-  .post-meta time{color:#00a7e0}
-  @media (max-width:767px){.posts-collapse{margin:0 20px}
-  .posts-collapse .post-meta,
-  .posts-collapse .post-title{display:block;width:auto;text-align:left}}
-  .posts-collapse{position:relative}
-  .posts-collapse::after{content:" ";position:absolute;top:20px;left:0;margin-left:-2px;width:4px;height:calc(100% - 35px);background:#f5f5f5;z-index:-1}
-  @media (max-width:991px){.posts-collapse{margin:0 20px}}
-  .posts-collapse .collection-title{position:relative}
-  .posts-collapse .collection-title h1,
-  .posts-collapse .collection-title h2{margin-left:20px}
-  .posts-collapse .collection-title small{color:#bbb;margin-left:5px}
-  .posts-collapse .collection-title::before{content:" ";position:absolute;left:0;top:50%;margin-left:-4px;margin-top:-4px;width:8px;height:8px;background:#bbb;border-radius:50%}
-  .posts-collapse .post-header{position:relative;transition-duration:.2s;transition-timing-function:ease-in-out;transition-delay:0s;transition-property:border}
-  .posts-collapse .post-header::before{content:" ";position:absolute;left:0;top:12px;width:6px;height:6px;margin-left:-4px;background:#bbb;border-radius:50%;border:1px solid #fff;transition: all .3s ease-in-out}
-  .posts-collapse .post-header:hover{border-bottom-color:#666}
-  .posts-collapse .post-header:hover::before{background:#222}
-  .posts-collapse .post-meta{position:absolute;font-size:12px;left:20px;top:5px}
-  .posts-collapse .kr-comments-count{display:none}
-  .posts-collapse .post-title{margin-left:70px;font-size:16px;font-weight:400;line-height:inherit}
-  .posts-collapse .post-title::after{margin-left:3px;opacity:.6}
-  .posts-collapse .post-title a{color:#666;border-bottom:none}
-</style>
-
-  <article>
-      <div class="kratos-hentry kratos-page-inner clearfix">
-          <header class="kratos-page-header">
-            <h1 class="kratos-page-title text-center" itemprop="name headline">文章归档</h1>
-          </header>
-          <div class="kratos-page-content kr-archive">
-            <div id="archives">
-              <div class="post-block archive post" style="margin-left: 2em;">
-                <h3 class="archive-page-counter">当前共有 2 篇文章 (゜-゜)つロ 干杯~</h3>
-                <div class="posts-collapse">
-                  
-                  
-                    
-                    
-                      <!-- 没遇到Title的会被自动忽略年份，即使并不一致 -->
-                      
-                      <div class="collection-title">
-                        <a href="/archives/2026/"><h2 class="archive-year">2026</h2></a>
-                      </div>
-                    
-                    
-                      <article class="post" itemscope itemtype="https://schema.org/Article">
-                        <header class="post-header">
-                          <h3 class="post-title">
-                            
-                                <a class="post-title-link" href="/2026/03/03/Kaitani/" itemprop="mainEntityOfPage">
-                                  <span itemprop="name headline">Kaitani</span>
-                                </a>
-                            
-                          </h3>
-                          <div class="post-meta">
-                            <time class="post-time" itemprop="datePublished"
-                                  datetime="2026-03-03T03:56:07.213Z">
-                              03-03
-                            </time>
-                          </div>
-                        </header>
-                      </article>
-                    
-                  
-                    
-                    
-                    
-                      <article class="post" itemscope itemtype="https://schema.org/Article">
-                        <header class="post-header">
-                          <h3 class="post-title">
-                            
-                                <a class="post-title-link" href="/2026/03/03/hello-world/" itemprop="mainEntityOfPage">
-                                  <span itemprop="name headline">Hello World</span>
-                                </a>
-                            
-                          </h3>
-                          <div class="post-meta">
-                            <time class="post-time" itemprop="datePublished"
-                                  datetime="2026-03-03T02:54:46.424Z">
-                              03-03
-                            </time>
-                          </div>
-                        </header>
-                      </article>
-                    
-                  
-                </div>
-              </div>
-            </div>
+                <h1 class="kratos-page-title text-center" itemprop="name headline">MySQL 学习笔记</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2026-04-06T08:00:00.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2026-04-06</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">Kaitani</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            433
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><h2 id="Go"><a href="#Go" class="headerlink" title="Go"></a>Go</h2><ul>
+<li><p><input disabled="" type="checkbox"> 
+1.为什么选Go语言</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+2.讲一下协程、线程、进程</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+3.defer执行顺序</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+4.slice扩容机制</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+5.map底层设计（map是不是并发安全的）</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+6.map扩容机制</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+7.CSP是什么</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+8.讲一下Go中的Channel</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+9.是否可以读写已关闭的Channel</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+10.select和switch的区别</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+11.原子操作和锁的区别</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+12.什么是自旋锁与互斥锁</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+13.sync.map和普通map的区别</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+14.讲一下Context以及使用场景</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+15.讲一下GMP模型，各个字母分别代表什么</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+16.为什么GMP模型中要有P</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+17.如果P的本地队列的G用完会发生什么</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+18.讲一下三色标记法</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+19.什么是混合写屏障</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+20.讲一下闭包</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+21.panic，Recovery，defer</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+22.多线程交替打印abc</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+23.多线程打印1到10</p>
+</li>
+</ul>
+</div>
         </div>
-      </div>
-      
-  </article>
-
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+                <div class="post-actions text-center clearfix" id="post-actions">
+                
+                    <a class="donate" href="javascript:;" onclick="krOpenDonateModal()"><i class="fa fa-bitcoin"></i> 打赏</a>
+                
+                
+                    <a class="share" href="javascript:;" onclick="krOpenShareModal()"><i class="fa fa-share-alt"></i> 分享</a>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/Go/" rel="tag">Go</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2026-04-06T08:12:45.017Z" itemprop="dateModified">最后编辑：2026-04-06</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" MySQL 学习笔记" href="/2026/04/06/MySQL/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+</article>
 
         
 
@@ -272,7 +329,7 @@
                         </div>
                         <div>
                             <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
-                            <li>站点由 John Doe 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                            <li>站点由 Kaitani 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
                         </div>
                         <!-- 额外的追加注入项 -->
                         
