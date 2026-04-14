@@ -7,9 +7,9 @@
     <link rel="icon" href="/assets/favicon.png">
   
   
-  <title>Go 八股 | Kaitani&#39;s Blog</title>
+  <title>Go 八股 | DeTarRated&#39;s Blog</title>
   <link rel="canonical" href="https://detarrated.github.io/2026/04/06/Go/">
-  <meta name="author" content="Kaitani" />
+  <meta name="author" content="DeTarRated" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -23,24 +23,24 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go 八股">
 <meta property="og:url" content="https://detarrated.github.io/2026/04/06/Go/index.html">
-<meta property="og:site_name" content="Kaitani&#39;s Blog">
+<meta property="og:site_name" content="DeTarRated&#39;s Blog">
 <meta property="og:description" content="Go   1.为什么选Go语言    2.讲一下协程、线程、进程    3.defer执行顺序    4.slice扩容机制    5.map底层设计（map是不是并发安全的）    6.map扩容机制    7.CSP是什么    8.讲一下Go中的Channel    9.是否可以读写已关闭的Channel    10.select和switch的区别    11.原子操作和锁的区别    1">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://detarrated.github.io/images/go-cover.png">
 <meta property="article:published_time" content="2026-04-06T08:00:00.000Z">
 <meta property="article:modified_time" content="2026-04-06T08:27:28.063Z">
-<meta property="article:author" content="Kaitani">
+<meta property="article:author" content="DeTarRated">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://detarrated.github.io/images/go-cover.png">
   
-    <link rel="alternate" href="/atom.xml" title="Kaitani's Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="DeTarRated's Blog" type="application/atom+xml">
   
   <!-- JSON-LD 结构化数据 -->
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Go 八股","description":"Go\n \n1.为什么选Go语言\n\n","image":"https://detarrated.github.io/2026/04/06/Go/images/go-cover.png","author":{"@type":"Person","name":"Kaitani"},"publisher":{"@type":"Organization","name":"Kaitani's Blog","logo":{"@type":"ImageObject","url":"https://detarrated.github.io/images/user.svg"}},"datePublished":"2026-04-06T08:00:00.000Z","dateModified":"2026-04-06T08:27:28.063Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://detarrated.github.io/2026/04/06/Go/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Go 八股","description":"Go\n \n1.为什么选Go语言\n\n","image":"https://detarrated.github.io/2026/04/06/Go/images/go-cover.png","author":{"@type":"Person","name":"DeTarRated"},"publisher":{"@type":"Organization","name":"DeTarRated's Blog","logo":{"@type":"ImageObject","url":"https://detarrated.github.io/images/user.svg"}},"datePublished":"2026-04-06T08:00:00.000Z","dateModified":"2026-04-06T08:27:28.063Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://detarrated.github.io/2026/04/06/Go/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -187,7 +187,7 @@
             </header>
             <header id="kratos-mobile-topnav" class="kratos-topnav">
                 <div class="container">
-                    <div class="color-logo"><a href="/">Kaitani&#39;s Blog</a></div>
+                    <div class="color-logo"><a href="/">DeTarRated&#39;s Blog</a></div>
                     <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
                         <a id="kratos-nav-toggle" class="kratos-nav-toggle">
                             <i></i>
@@ -201,7 +201,7 @@
             <div class="kratos-cover kratos-cover-2 text-center">
                 <div class="desc desc2 animate-box">
                     <a href="/">
-                        <h2>Kaitani&#39;s Blog</h2> <br />
+                        <h2>DeTarRated&#39;s Blog</h2> <br />
                         <span></span>
                     </a>
                 </div>
@@ -231,7 +231,7 @@
             <ul class="kratos-page-meta text-center">
                 <li><time datetime="2026-04-06T08:00:00.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2026-04-06</time></li>
                 <li itemprop="author" itemscope itemtype="https://schema.org/Person">
-                    <i class="fa fa-user"></i> 作者 <span itemprop="name">Kaitani</span>
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">DeTarRated</span>
                 </li>
                 
                     <li>
@@ -386,7 +386,7 @@
     <div class="photo-background"></div>
     <div class="photo-wrapper clearfix">
         <div class="photo-wrapper-tip text-center">
-            <img class="about-photo" src="/images/user.svg" alt="Kaitani" loading="lazy" decoding="auto" />
+            <img class="about-photo" src="/images/user.svg" alt="DeTarRated" loading="lazy" decoding="auto" />
         </div>
     </div>
     <div class="textwidget">
@@ -495,12 +495,12 @@
                     </ul>
                     <ul class="kratos-copyright">
                         <div>
-                            <li>&copy; 2026 Kaitani's Blog 版权所有.</li>
+                            <li>&copy; 2026 DeTarRated's Blog 版权所有.</li>
                             <li>本站已在风雨中飘摇<span id="kr-since">Loading...</span></li>
                         </div>
                         <div>
                             <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
-                            <li>站点由 <a href="https://github.com/Candinya/Kratos-Rebirth/graphs/contributors" target="_blank">Kaitani</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                            <li>站点由 <a href="https://github.com/Candinya/Kratos-Rebirth/graphs/contributors" target="_blank">DeTarRated</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
                         </div>
                         <!-- 额外的追加注入项 -->
                         
